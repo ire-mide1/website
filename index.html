@@ -11,13 +11,12 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#fafafa;--card:#fff;--text:#1a1a2e;--text-secondary:#555;--text-muted:#888;
-  --accent:#1565C0;--accent-light:#E3F2FD;--accent-dark:#0D47A1;
-  --maroon:#7B1A3A;
-  --border:#e8e8e8;--border-accent:#90CAF9;
+  --accent:#7B1FA2;--accent-light:#F3E5F5;--accent-dark:#4A148C;
+  --border:#e8e8e8;--border-accent:#CE93D8;
   --green:#2E7D32;--green-light:#E8F5E9;--green-border:#A5D6A7;
   --orange:#E65100;--orange-light:#FFF3E0;--orange-border:#FFCC80;
   --gold:#F9A825;--gold-light:#FFF8E1;
-  --dark:#1B2A4A;
+  --dark:#1B1A2E;
   --font-body:'Source Sans 3',system-ui,sans-serif;
   --font-display:'Playfair Display',Georgia,serif;
   --radius-lg:12px;
@@ -28,7 +27,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-he
 a{color:var(--accent);text-decoration:none;transition:color .2s}
 a:hover{color:var(--accent-dark)}
 
-.top-bar{height:4px;background:linear-gradient(90deg,var(--maroon),#C72C5C,var(--accent))}
+.top-bar{height:4px;background:linear-gradient(90deg,#4A148C,#7B1FA2,#CE93D8)}
 
 nav{max-width:var(--max-w);margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:14px 24px}
 .nav-logo{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text)}
@@ -83,9 +82,9 @@ nav{max-width:var(--max-w);margin:0 auto;display:flex;justify-content:space-betw
 .project-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:box-shadow .2s,transform .2s}
 .project-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
 .project-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;font-family:var(--font-display);color:#fff;text-align:center;padding:0 16px}
-.project-img.c1{background:linear-gradient(135deg,#0A1128,#1B3A5C,#2471A3)}
-.project-img.c2{background:linear-gradient(135deg,#1B6B93,#2E86C1,#48C9B0)}
-.project-img.c3{background:linear-gradient(135deg,#4A148C,#7B1FA2,#CE93D8)}
+.project-img.c1{background:linear-gradient(135deg,#4A148C,#7B1FA2,#CE93D8)}
+.project-img.c2{background:linear-gradient(135deg,#311B92,#5C6BC0,#9FA8DA)}
+.project-img.c3{background:linear-gradient(135deg,#1A237E,#3949AB,#7986CB)}
 .project-body{padding:18px 20px}
 .project-body h3{font-size:16px;font-weight:700;margin-bottom:4px;line-height:1.35}
 .project-meta{font-size:12px;color:var(--accent);font-weight:500;margin-bottom:8px}
@@ -97,10 +96,16 @@ nav{max-width:var(--max-w);margin:0 auto;display:flex;justify-content:space-betw
 .project-link svg{width:14px;height:14px;fill:currentColor}
 
 .highlights-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.highlights-scroll{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;-ms-overflow-style:none;scrollbar-width:none}
-.highlights-scroll::-webkit-scrollbar{display:none}
-.highlight-card{min-width:240px;max-width:240px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;scroll-snap-align:start;flex-shrink:0;transition:box-shadow .2s}
+
+/* Highlights marquee */
+.hl-track-wrap{overflow:hidden;position:relative}
+.hl-track{display:flex;gap:16px;animation:hlScroll 30s linear infinite;width:max-content}
+.hl-track-wrap:hover .hl-track,.hl-track-wrap.stopped .hl-track{animation-play-state:paused}
+@keyframes hlScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+.highlight-card{min-width:240px;max-width:240px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;flex-shrink:0;transition:box-shadow .2s,border-color .2s;cursor:pointer}
 .highlight-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.highlight-card.selected{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-light)}
 .hl-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
 .hl-icon{width:32px;height:32px;border-radius:8px;background:var(--accent-light);display:flex;align-items:center;justify-content:center}
 .hl-icon svg{width:16px;height:16px;fill:var(--accent)}
@@ -151,7 +156,7 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px;text-align:center;font-
     <a href="#publications">Research</a>
     <a href="#projects">Projects</a>
     <a href="#highlights">News</a>
-    <a href="#">Blog</a>
+    <a href="https://medium.com/@oyelajairemide" target="_blank" rel="noopener">Blog</a>
     <a href="#">CV</a>
   </div>
 </nav>
@@ -173,7 +178,7 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px;text-align:center;font-
       MSc in Information Technology
     </div>
     <div class="interest-tags">
-      <span class="tag"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg> Privacy-Echancing Technologies (PETs)</span>
+      <span class="tag"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg> Privacy-Enhancing Technologies (PETs)</span>
       <span class="tag"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg> Data Privacy and Security</span>
       <span class="tag"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg> Adversarial ML</span>
       <span class="tag"><svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg> Multi Agent Systems</span>
@@ -182,7 +187,8 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px;text-align:center;font-
       <a href="mailto:ioyelaja@andrew.cmu.edu" title="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
       <a href="https://github.com/ire-mide1" target="_blank" rel="noopener" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></a>
       <a href="https://www.linkedin.com/in/oyelajairemide" target="_blank" rel="noopener" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
-      <a href="https://x.com" target="_blank" rel="noopener" title="X / Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <!-- Hashnode -->
+      <a href="https://hashnode.com/@Techxy" target="_blank" rel="noopener" title="Hashnode"><svg viewBox="0 0 24 24"><path d="M2.652 10.852a2.996 2.996 0 000 4.296l6.2 6.2a2.996 2.996 0 004.296 0l6.2-6.2a2.996 2.996 0 000-4.296l-6.2-6.2a2.996 2.996 0 00-4.296 0l-6.2 6.2zm8.348 5.66a3.512 3.512 0 110-7.024 3.512 3.512 0 010 7.024z"/></svg></a>
     </div>
   </div>
 </section>
@@ -198,7 +204,7 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px;text-align:center;font-
       I am a <strong>graduate student at Carnegie Mellon University</strong> exploring the intersection of <strong>machine learning, security, and privacy</strong>. My research spans <strong>federated learning, differential privacy, adversarial machine learning, and multimodal systems</strong>, with experience applying these methods to real-world problems in finance and healthcare.
     </p>
     <p>
-      I bring a combination of <strong>research, engineering, and industry experience</strong>from developing ML systems to building data-driven solutions in production environments. I am interested in challenging problems where machine learning meets real-world constraints, and in building systems that are <strong>secure, reliable, and useful</strong>.
+      I bring a combination of <strong>research, engineering, and industry experience</strong>, from developing ML systems to building data-driven solutions in production environments. I am interested in challenging problems where machine learning meets real-world constraints, and in building systems that are <strong>secure, reliable, and useful</strong>.
     </p>
   </div>
 </section>
@@ -208,7 +214,6 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px;text-align:center;font-
   <h2 class="section-heading">Recent publications</h2>
   <div class="heading-line"></div>
 
-  <!-- Pub 1 -->
   <div class="pub-card">
     <div class="pub-badges">
       <span class="badge badge-venue">&#128202; arXiv 2026</span>
@@ -218,12 +223,11 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px;text-align:center;font-
     <div class="pub-authors">N. Obiefuna, S. Oyeneye, S. Odunaiya, I. Oyelaja, S. Kolawole</div>
     <div class="pub-venue">arXiv preprint arXiv:2602.18900, 2026</div>
     <div class="pub-links">
-      <a href="#" class="pub-link"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg> PDF</a>
-      <a href="#" class="pub-link"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> arXiv</a>
+      <a href="https://arxiv.org/pdf/2602.18900" target="_blank" rel="noopener" class="pub-link"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg> PDF</a>
+      <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MynDoW4AAAAJ&citation_for_view=MynDoW4AAAAJ:2P1L_qKh6hAC" target="_blank" rel="noopener" class="pub-link"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> arXiv</a>
     </div>
   </div>
 
-  <!-- Pub 2 -->
   <div class="pub-card">
     <div class="pub-badges">
       <span class="badge badge-venue">&#128274; ICLR 2025</span>
@@ -233,12 +237,11 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px;text-align:center;font-
     <div class="pub-authors">N. Obiefuna, I. Oyelaja, S. Odunaiya, S. Oyeneye, ML Collective</div>
     <div class="pub-venue">ICLR 2025 Workshop on Advances in Financial AI &middot; Cited by 2</div>
     <div class="pub-links">
-      <a href="#" class="pub-link"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg> PDF</a>
-      <a href="#" class="pub-link"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> arXiv</a>
+      <a href="https://s.mlcollective.org/SecureandScalableHorizontalFederatedLearningforBankFraudDetection.pdf" target="_blank" rel="noopener" class="pub-link"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg> PDF</a>
+      <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MynDoW4AAAAJ&citation_for_view=MynDoW4AAAAJ:vV6vV6tmYwMC" target="_blank" rel="noopener" class="pub-link"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> arXiv</a>
     </div>
   </div>
 
-  <!-- Pub 3 -->
   <div class="pub-card">
     <div class="pub-badges">
       <span class="badge badge-venue">&#9881; ES-FoMo III 2025</span>
@@ -248,11 +251,10 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px;text-align:center;font-
     <div class="pub-authors">N.C. Obiefuna, S.O. Oyeneye, S. Odunaiya, I.B. Oyelaja, S. Kolawole</div>
     <div class="pub-venue">ES-FoMo III: 3rd Workshop on Efficient Systems for Foundation Models &middot; Cited by 1</div>
     <div class="pub-links">
-      <a href="#" class="pub-link"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg> PDF</a>
+      <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MynDoW4AAAAJ&citation_for_view=MynDoW4AAAAJ:lSLTfruPkqcC" target="_blank" rel="noopener" class="pub-link"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg> PDF</a>
     </div>
   </div>
 
-  <!-- Pub 4 -->
   <div class="pub-card">
     <div class="pub-badges">
       <span class="badge badge-venue">&#9889; FUOYE 2025</span>
@@ -262,20 +264,21 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px;text-align:center;font-
     <div class="pub-authors">A.O.M. Folasade Dahunsi, Iremide Blessing Oyelaja, Akinlolu Adediran Ponnle</div>
     <div class="pub-venue">FUOYE Journal of Engineering and Technology 10 (2), 2025</div>
     <div class="pub-links">
-      <a href="#" class="pub-link"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg> PDF</a>
+      <a href="https://journal.engineering.fuoye.edu.ng/index.php/engineer/article/view/1287" target="_blank" rel="noopener" class="pub-link"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg> PDF</a>
+      <a href="https://agris.fao.org/search/en/providers/124414/records/69fc63577e209e5ac6287e9b" target="_blank" rel="noopener" class="pub-link"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> AGRIS</a>
     </div>
   </div>
 
-  <!-- Pub 5 -->
   <div class="pub-card">
     <div class="pub-badges">
-      <span class="badge badge-venue">&#128225; Deep Learning</span>
+      <span class="badge badge-venue">&#128225; Undergraduate Thesis</span>
     </div>
     <div class="pub-title">Deep-Learning-Based Non-Linear Equalization for Optical Fiber Communication</div>
     <div class="pub-authors">I. Oyelaja, F.M. Dahunsi, D. Abode</div>
-    <div class="pub-venue">Research on applying deep learning techniques to non-linear signal equalization in optical fiber systems</div>
+    <div class="pub-venue">Undergraduate thesis on applying deep learning to non-linear signal equalization in optical fiber systems</div>
     <div class="pub-links">
-      <a href="#" class="pub-link"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg> PDF</a>
+      <a href="https://www.researchgate.net/profile/Iremide-Oyelaja/publication/399660621_DEEP-LEARNING-BASED_NON-LINEAR_EQUALIZATION_FOR_OPTICAL_FIBER_COMMUNICATION/links/6963990eee048155cffa77c0/DEEP-LEARNING-BASED-NON-LINEAR-EQUALIZATION-FOR-OPTICAL-FIBER-COMMUNICATION.pdf" target="_blank" rel="noopener" class="pub-link"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg> PDF</a>
+      <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=MynDoW4AAAAJ&citation_for_view=MynDoW4AAAAJ:70eg2SAEIzsC" target="_blank" rel="noopener" class="pub-link"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> Scholar</a>
     </div>
   </div>
 </section>
@@ -285,7 +288,6 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px;text-align:center;font-
   <h2 class="section-heading">Selected projects</h2>
   <div class="heading-line"></div>
   <div class="projects-grid">
-
     <div class="project-card">
       <div class="project-img c1">MotoGuide</div>
       <div class="project-body">
@@ -293,13 +295,9 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px;text-align:center;font-
         <div class="project-meta">Web App &middot; 2026</div>
         <p>A guide application built to help users navigate and make informed decisions with an intuitive, accessible interface.</p>
         <div class="project-tags"><span>Web</span><span>Full Stack</span><span>2026</span></div>
-        <a href="https://moto-guide.vercel.app/" target="_blank" rel="noopener" class="project-link">
-          <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/><path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z"/></svg>
-          Live Demo &rarr;
-        </a>
+        <a href="https://moto-guide.vercel.app/" target="_blank" rel="noopener" class="project-link"><svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/><path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z"/></svg> Live Demo &rarr;</a>
       </div>
     </div>
-
     <div class="project-card">
       <div class="project-img c2">LoanGuard</div>
       <div class="project-body">
@@ -307,13 +305,9 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px;text-align:center;font-
         <div class="project-meta">AI Tool &middot; Hugging Face &middot; 2025</div>
         <p>An AI web tool that quickly scans loan-app policies and gives alerts to spot predatory terms, helping users protect themselves from unfair lending practices.</p>
         <div class="project-tags"><span>AI</span><span>NLP</span><span>FinTech</span><span>HuggingFace</span></div>
-        <a href="https://huggingface.co/spaces/Iremidee/LoanGuard" target="_blank" rel="noopener" class="project-link">
-          <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/><path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z"/></svg>
-          Try on Hugging Face &rarr;
-        </a>
+        <a href="https://huggingface.co/spaces/Iremidee/LoanGuard" target="_blank" rel="noopener" class="project-link"><svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/><path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z"/></svg> Try on Hugging Face &rarr;</a>
       </div>
     </div>
-
     <div class="project-card">
       <div class="project-img c3">Job Posting<br>Detector</div>
       <div class="project-body">
@@ -321,13 +315,9 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px;text-align:center;font-
         <div class="project-meta">NLP &middot; Hugging Face Transformers &middot; 2023</div>
         <p>Used Hugging Face NLP (DistilBERT) to detect fraudulent job listings in Nigeria. Improved accuracy using data augmentation and hyperparameter tuning.</p>
         <div class="project-tags"><span>NLP</span><span>Transformers</span><span>Classification</span><span>Kaggle</span></div>
-        <a href="https://www.kaggle.com/datasets/oyelajairemide/fakereal-job-posting-in-nigeria" target="_blank" rel="noopener" class="project-link">
-          <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/><path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z"/></svg>
-          View on Kaggle &rarr;
-        </a>
+        <a href="https://www.kaggle.com/datasets/oyelajairemide/fakereal-job-posting-in-nigeria" target="_blank" rel="noopener" class="project-link"><svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/><path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z"/></svg> View on Kaggle &rarr;</a>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -340,31 +330,33 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px;text-align:center;font-
     </div>
     <a href="#" class="btn-outline">All news &amp; updates &rarr;</a>
   </div>
-  <div class="highlights-scroll" id="hlScroll">
-    <div class="highlight-card">
-      <div class="hl-top"><div class="hl-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6z"/></svg></div><span class="hl-date">2026</span></div>
-      <div class="hl-title">PrivacyBench Preprint</div>
-      <div class="hl-desc">Released PrivacyBench on arXiv — benchmarking hybrid privacy-preserving vision systems.</div>
-    </div>
-    <div class="highlight-card">
-      <div class="hl-top"><div class="hl-icon"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.2V17l7 4 7-4v-5.8l2-1.1V17h2V9L12 3z"/></svg></div><span class="hl-date">2026</span></div>
-      <div class="hl-title">MotoGuide Launch</div>
-      <div class="hl-desc">Shipped MotoGuide, a web application for guided navigation and decision-making.</div>
-    </div>
-    <div class="highlight-card">
-      <div class="hl-top"><div class="hl-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div><span class="hl-date">2025</span></div>
-      <div class="hl-title">ICLR 2025 Workshop</div>
-      <div class="hl-desc">Paper on federated learning for bank fraud detection accepted at ICLR 2025 Financial AI workshop.</div>
-    </div>
-    <div class="highlight-card">
-      <div class="hl-top"><div class="hl-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div><span class="hl-date">2025</span></div>
-      <div class="hl-title">LoanGuard Deployed</div>
-      <div class="hl-desc">Launched LoanGuard on Hugging Face — AI-powered predatory lending detection tool.</div>
-    </div>
-    <div class="highlight-card">
-      <div class="hl-top"><div class="hl-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></div><span class="hl-date">2025</span></div>
-      <div class="hl-title">ES-FoMo III Paper</div>
-      <div class="hl-desc">Published benchmarking study on the systems cost of privacy-preserving ML.</div>
+  <div class="hl-track-wrap" id="hlWrap">
+    <div class="hl-track" id="hlTrack">
+      <div class="highlight-card" data-hl>
+        <div class="hl-top"><div class="hl-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6z"/></svg></div><span class="hl-date">2026</span></div>
+        <div class="hl-title">PrivacyBench Preprint</div>
+        <div class="hl-desc">Released PrivacyBench on arXiv — benchmarking hybrid privacy-preserving vision systems.</div>
+      </div>
+      <div class="highlight-card" data-hl>
+        <div class="hl-top"><div class="hl-icon"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.2V17l7 4 7-4v-5.8l2-1.1V17h2V9L12 3z"/></svg></div><span class="hl-date">2026</span></div>
+        <div class="hl-title">MotoGuide Launch</div>
+        <div class="hl-desc">Shipped MotoGuide, a web application for guided navigation and decision-making.</div>
+      </div>
+      <div class="highlight-card" data-hl>
+        <div class="hl-top"><div class="hl-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div><span class="hl-date">2025</span></div>
+        <div class="hl-title">ICLR 2025 Workshop</div>
+        <div class="hl-desc">Paper on federated learning for bank fraud detection accepted at ICLR 2025 Financial AI workshop.</div>
+      </div>
+      <div class="highlight-card" data-hl>
+        <div class="hl-top"><div class="hl-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div><span class="hl-date">2025</span></div>
+        <div class="hl-title">LoanGuard Deployed</div>
+        <div class="hl-desc">Launched LoanGuard on Hugging Face — AI-powered predatory lending detection tool.</div>
+      </div>
+      <div class="highlight-card" data-hl>
+        <div class="hl-top"><div class="hl-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></div><span class="hl-date">2025</span></div>
+        <div class="hl-title">ES-FoMo III Paper</div>
+        <div class="hl-desc">Published benchmarking study on the systems cost of privacy-preserving ML.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -394,11 +386,29 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px;text-align:center;font-
 </button>
 
 <script>
+// Scroll-to-top
 window.addEventListener('scroll',function(){document.getElementById('scrollBtn').classList.toggle('show',window.scrollY>300)});
-const hl=document.getElementById('hlScroll');let paused=false;
-hl.addEventListener('mouseenter',()=>paused=true);
-hl.addEventListener('mouseleave',()=>paused=false);
-function tick(){if(!paused&&hl.scrollWidth>hl.clientWidth){hl.scrollLeft+=0.5;if(hl.scrollLeft>=hl.scrollWidth-hl.clientWidth)hl.scrollLeft=0}requestAnimationFrame(tick)}tick();
+
+// Duplicate highlight cards for seamless loop
+const track=document.getElementById('hlTrack');
+track.innerHTML+=track.innerHTML;
+
+// Click a highlight card to stop/resume
+const wrap=document.getElementById('hlWrap');
+document.querySelectorAll('.highlight-card').forEach(card=>{
+  card.addEventListener('click',function(){
+    const wasSelected=this.classList.contains('selected');
+    document.querySelectorAll('.highlight-card.selected').forEach(c=>c.classList.remove('selected'));
+    if(wasSelected){
+      wrap.classList.remove('stopped');
+    }else{
+      this.classList.add('selected');
+      wrap.classList.add('stopped');
+    }
+  });
+});
+
+// Smooth nav scroll
 document.querySelectorAll('.nav-links a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){const t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}})});
 </script>
 </body>
